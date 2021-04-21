@@ -5,10 +5,10 @@ const MealItem = props => {
   return (
     <View style={styles.mealItemContainer}>
     <View style={styles.mealItem}>
-      <TouchableOpacity onPress={props.onSelectMeal}>
+      <TouchableOpacity onPress={props.onSelect}>
         <View>
           <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
-            <ImageBackground style={styles.bgImage} source={{uri: props.image}}>
+            <ImageBackground style={styles.bgImage} source={{ uri: props.image }}>
               <View style={styles.titleContainer}>
                 <Text style={styles.title} numberOfLines={1}>{props.title}</Text>
               </View>
@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#f5f5f5',
     borderRadius: 10,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    marginVertical: 10
   },
   bgImage: {
     width: '100%',

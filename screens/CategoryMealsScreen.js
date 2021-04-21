@@ -1,36 +1,20 @@
 import React from 'react'
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { useSelector } from 'react-redux'
 
-import { CATEGORIES, MEALS } from '../data/dummy-data'
-import MealItem from '../components/MealItem'
+import MealList from '../components/MealList'
+import { CATEGORIES } from '../data/dummy-data'
 
 const CategoryMealScreen = props => {
   const categoryId = props.navigation.getParam('categoryId')
-  const selectedCategory = CATEGORIES.find(cat => cat.id === categoryId)
+  const availableMeals = useSelector(state => state.meals.filteredMeals)
   const displayedMeals =
-    MEALS.filter(meal => meal.categoryIds.indexOf(categoryId) >= 0)
-
-  const renderMealItem = itemData => {
-    return (
-      <MealItem
-        title={itemData.item.title}
-        duration={itemData.item.duration}
-        complexity={itemData.item.complexity}
-        affordability={itemData.item.affordability}
-        image={itemData.item.imageUrl}
-        onSelect={() => {}}
-      />
-    )
-  }
+    availableMeals.filter(meal => meal.categoryIds.indexOf(categoryId) >= 0)
 
   return (
-    <View style={styles.screen}>
-      <FlatList
-        data={displayedMeals}
-        renderItem={renderMealItem}
-        style={{ width: '100%' }}
-      />
-    </View>
+    <MealList
+      displayedMeals={displayedMeals}
+      navigation={props.navigation}
+    />
   )
 }
 
@@ -41,14 +25,5 @@ CategoryMealScreen.navigationOptions = navigationData => {
     headerTitle: selectedCategory.title
   }
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
 
 export default CategoryMealScreen
